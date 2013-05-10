@@ -1,0 +1,56 @@
+<!DOCTYPE riviera-workspace-user>
+<riviera-workspace-user>
+    <plugins>
+        <plugin name="simulation_controller">
+            <settings>
+                <breakpoints/>
+            </settings>
+        </plugin>
+        <plugin name="watch">
+            <settings>
+                <watch1/>
+                <watch2/>
+                <watch3/>
+                <watch4/>
+            </settings>
+        </plugin>
+    </plugins>
+    <documents>
+        <document is_docked="1" type="verilog" file="../../../rtl/gci_std_display.v">
+            <settings>
+                <cursor line="195" column="0"/>
+                <code_analysis enabled="1"/>
+            </settings>
+        </document>
+        <document is_docked="1" type="verilog" file="../../tb_gci_std_display.v">
+            <settings>
+                <cursor line="217" column="0"/>
+                <code_analysis enabled="1"/>
+            </settings>
+        </document>
+        <document is_docked="1" type="verilog" file="../../../rtl/gci_std_sync_fifo.v">
+            <settings>
+                <cursor line="54" column="43"/>
+                <code_analysis enabled="1"/>
+            </settings>
+        </document>
+        <document is_docked="1" type="verilog" file="../../model/display_model.v">
+            <settings>
+                <cursor line="184" column="0"/>
+                <code_analysis enabled="1"/>
+            </settings>
+        </document>
+        <document is_docked="1" type="verilog" file="../../../rtl/vram_controller/gci_std_display_vram_controller_ssram.v">
+            <settings>
+                <cursor line="593" column="20"/>
+                <code_analysis enabled="1"/>
+            </settings>
+        </document>
+        <document is_docked="1" type="verilog" file="../../model/CY7C1380_PL_SCD.v">
+            <settings>
+                <cursor line="447" column="37"/>
+                <code_analysis enabled="1"/>
+            </settings>
+        </document>
+    </documents>
+</riviera-workspace-user>

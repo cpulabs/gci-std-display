@@ -1,0 +1,33 @@
+Riviera-PRO 2013.02.81.4877(Windows64) 2013-05-10 17:43:39
+
+Elaboration top modules:
+Verilog Module                tb_gci_std_display
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Verilog Module                        | Library               | Info | Compiler Version       | Compilation Options
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+tb_gci_std_display                    | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+display_model                         | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+CY7C1380_PLSCD                        | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_display                       | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_display_device_special_memory | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_display_display_controller    | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_display_cmd_controller        | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_display_vram_controller_ssram | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_display_timing_generator      | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_display_font                  | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_sync_fifo                     | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_async_fifo                    | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+gci_std_async_fifo_double_flipflop    | gci_std_display_ssram |      | 2013.02.81 (Windows64) | -l gci_std_display_ssram +define+GCI_STD_DISPLAY_SSRAM -dbg -protect 0
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Library                               | Comment
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+gci_std_display_ssram                 | None
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Simulation Options: asim -lib gci_std_display_ssram -dbg -t 0 -dataset {C:/altera/project/gci-std-display/gci-std-display/sim/riviera/gci_std_display/gci_std_display_ssram} -datasetname {sim} tb_gci_std_display
+

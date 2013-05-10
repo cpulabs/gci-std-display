@@ -1,0 +1,15 @@
+<!DOCTYPE riviera-workspace>
+<riviera-workspace>
+    <version value="2012.12.83alint10.4782"/>
+    <active-design name="gci_std_display"/>
+    <active-configuration name="alint"/>
+    <designs>
+        <design path="gci_std_display.rdsn"/>
+    </designs>
+    <dependencies/>
+    <configurations>
+        <configuration name="alint">
+            <design name="gci_std_display" configuration="alint"/>
+        </configuration>
+    </configurations>
+</riviera-workspace>

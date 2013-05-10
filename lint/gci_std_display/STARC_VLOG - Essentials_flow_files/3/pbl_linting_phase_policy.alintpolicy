@@ -1,0 +1,73 @@
+# Configuration file for Aldec ALINT product. Generated automatically.
+# (C) 2006-2012, Aldec Inc.
+
+POLICY /* pbl_linting_phase_policy */
+{
+
+    # Used rules
+    USE STARC_VLOG.1.2.1.2 
+    USE STARC_VLOG.1.2.1.3 
+    USE STARC_VLOG.1.3.1.2 
+    USE STARC_VLOG.1.3.1.3 
+    USE STARC_VLOG.1.3.2.2 
+    USE STARC_VLOG.1.4.3.2 
+    USE STARC_VLOG.1.4.3.4 
+    USE STARC_VLOG.1.7.1.1 
+    USE STARC_VLOG.2.4.1.4 
+    USE STARC_VLOG.2.4.1.5 
+    USE STARC_VLOG.3.4.1.1 
+
+    # Rules configuration
+    RULE_CONFIGURATION STARC_VLOG.1.2.1.3  /* STARC_VLOG.STARC_COMBCIRCUITFEEDBACK */
+    {
+        # Enables or disables the rule.
+        ENABLED = ON
+
+        # Defines the severity level of rule violation.
+        SEVERITY = CRITICAL
+
+        # Defines the feedback reporting mode (brief or detailed). Detailed report helps to investigate whole feedback propagation chain.
+        DETAILED_PROPAGATION_CHAIN = "DISABLED"
+
+    }
+    RULE_CONFIGURATION STARC_VLOG.1.3.1.3  /* STARC_VLOG.STARC_ASYNCRSTONLYFORGRST */
+    {
+        # Enables or disables the rule.
+        ENABLED = ON
+
+        # Defines the severity level of rule violation.
+        SEVERITY = CRITICAL
+
+    }
+    RULE_CONFIGURATION STARC_VLOG.1.3.2.2  /* STARC_VLOG.STARC_GRSTONLYFORFFASYNCRST */
+    {
+        # Enables or disables the rule.
+        ENABLED = ON
+
+        # Defines the severity level of rule violation.
+        SEVERITY = CRITICAL
+
+    }
+    RULE_CONFIGURATION STARC_VLOG.1.4.3.4  /* STARC_VLOG.STARC_NOCLOCKTONONCLOCKPORTFF */
+    {
+        # Enables or disables the rule.
+        ENABLED = ON
+
+        # Defines the severity level of rule violation.
+        SEVERITY = CRITICAL
+
+    }
+    RULE_CONFIGURATION STARC_VLOG.2.4.1.4  /* STARC_VLOG.STARC_LATCHFEEDBACK */
+    {
+        # Enables or disables the rule.
+        ENABLED = ON
+
+        # Defines the severity level of rule violation.
+        SEVERITY = CRITICAL
+
+        # Defines the feedback reporting mode (brief or detailed). Detailed report helps to investigate whole feedback propagation chain.
+        DETAILED_PROPAGATION_CHAIN = "DISABLED"
+
+    }
+}
+

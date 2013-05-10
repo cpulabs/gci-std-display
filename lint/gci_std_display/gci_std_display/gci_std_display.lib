@@ -1,0 +1,91 @@
+timestamp=1367804581043
+
+[$root]
+A/$root=22|""|0|1*131502
+BinW64/$root=3*101912
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_async_fifo]
+A/gci_std_async_fifo=22|./../../../rtl/gci_std_async_fifo.v|27|1*131892
+BinW64/gci_std_async_fifo=3*102079
+R=./../../../rtl/gci_std_async_fifo.v|27
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_async_fifo_double_flipflop]
+A/gci_std_async_fifo_double_flipflop=22|./../../../rtl/gci_std_async_fifo_double_flipflop.v|4|1*139501
+BinW64/gci_std_async_fifo_double_flipflop=3*110122
+R=./../../../rtl/gci_std_async_fifo_double_flipflop.v|4
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_display]
+A/gci_std_display=22|./../../../rtl/gci_std_display.v|49|1*141535
+BinW64/gci_std_display=3*111925
+R=./../../../rtl/gci_std_display.v|49
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_display_cmd_controller]
+A/gci_std_display_cmd_controller=22|./../../../rtl/gci_std_display_cmd_controller.v|13|1*162127
+BinW64/gci_std_display_cmd_controller=3*118127
+R=./../../../rtl/gci_std_display_cmd_controller.v|13
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_display_device_special_memory]
+A/gci_std_display_device_special_memory=22|./../../../rtl/gci_std_display_device_special_memory.v|12|1*149005
+BinW64/gci_std_display_device_special_memory=3*114002
+R=./../../../rtl/gci_std_display_device_special_memory.v|12
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_display_display_controller]
+A/gci_std_display_display_controller=22|./../../../rtl/gci_std_display_display_controller.v|5|1*151984
+BinW64/gci_std_display_display_controller=3*115789
+R=./../../../rtl/gci_std_display_display_controller.v|5
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_display_font]
+A/gci_std_display_font=22|./../../../rtl/gci_std_display_font.v|3|1*167322
+BinW64/gci_std_display_font=3*122840
+R=./../../../rtl/gci_std_display_font.v|3
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_display_timing_generator]
+A/gci_std_display_timing_generator=22|./../../../rtl/gci_std_display_timing_generator.v|6|1*183313
+BinW64/gci_std_display_timing_generator=3*137476
+R=./../../../rtl/gci_std_display_timing_generator.v|6
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_display_vram_controller_sram]
+A/gci_std_display_vram_controller_sram=22|./../../../rtl/vram_controller/gci_std_display_vram_controller_sram.v|5|1*169203
+BinW64/gci_std_display_vram_controller_sram=3*127642
+R=./../../../rtl/vram_controller/gci_std_display_vram_controller_sram.v|5
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[gci_std_sync_fifo]
+A/gci_std_sync_fifo=22|./../../../rtl/gci_std_sync_fifo.v|26|1*191422
+BinW64/gci_std_sync_fifo=3*145620
+R=./../../../rtl/gci_std_sync_fifo.v|26
+Version=2012.12.83 (Windows64)|00000021789cd3cd51484fce8c2f2e49894fc92c2ec849ac54d0f53752d02d28ca2f494d2e51300000c5820b58
+
+[~A]
+C:/altera/project/MIST1032ISA/src/device/gci-std-display/rtl/gci_std_async_fifo.v_gci_std_async_fifo_double_flipflop.v_gci_std_display.v_gci_std_display_cmd_controller.v_gci_std_display_device_special_memory.v_gci_std_display_display_controller.v_gci_std_display_font.v_gci_std_display_timing_generator.v_gci_std_sync_fifo.v_gci_std_display_vram_controller_sram.v=0*60010*71711
+LastVerilogToplevel=gci_std_display
+ModifyID=279
+Version=73
+
+[~MFT]
+0=42|0gci_std_display.mgf|71711|25474
+1=54|1gci_std_display.mgf|191422|131502
+3=54|3gci_std_display.mgf|145620|101912
+
+[~U]
+$root=12|0*48498|
+gci_std_async_fifo=12|0*48760|
+gci_std_async_fifo_double_flipflop=12|0*49773|
+gci_std_display=12|0*50138||0x10
+gci_std_display_cmd_controller=12|0*54209|
+gci_std_display_device_special_memory=12|0*52024|
+gci_std_display_display_controller=12|0*52649|
+gci_std_display_font=12|0*55029|
+gci_std_display_timing_generator=12|0*57718|
+gci_std_display_vram_controller_sram=12|0*55361|
+gci_std_sync_fifo=12|0*59297|
+

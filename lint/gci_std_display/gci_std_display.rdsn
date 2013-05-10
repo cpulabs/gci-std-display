@@ -1,0 +1,39 @@
+<!DOCTYPE riviera-design>
+<riviera-design>
+    <version value="2012.12.83alint10.4782"/>
+    <configurations>
+        <configuration name="alint"/>
+    </configurations>
+    <properties>
+        <configuration name="alint">
+            <library>
+                <active-library value="gci_std_display"/>
+            </library>
+            <global>
+                <intermediate-dir value="./alint"/>
+            </global>
+            <application>
+                <alint_preferences>
+                    <general>
+                        <use_alint_flow_file value="true"/>
+                        <policy_file value="STARC_VLOG_1_1"/>
+                        <alint_flow_file value="C:/altera/project/MIST1032ISA/src/device/gci-std-display/lint/gci_std_display/STARC_VLOG - Essentials.alintflow"/>
+                    </general>
+                </alint_preferences>
+            </application>
+        </configuration>
+    </properties>
+    <structure>
+        <file path="../../rtl/gci_std_async_fifo.v"/>
+        <file path="../../rtl/gci_std_async_fifo_double_flipflop.v"/>
+        <file path="../../rtl/gci_std_display.v"/>
+        <file path="../../rtl/gci_std_display_cmd_controller.v"/>
+        <file path="../../rtl/gci_std_display_device_special_memory.v"/>
+        <file path="../../rtl/gci_std_display_display_controller.v"/>
+        <file path="../../rtl/gci_std_display_font.v"/>
+        <file path="../../rtl/gci_std_display_timing_generator.v"/>
+        <file path="../../rtl/gci_std_sync_fifo.v"/>
+        <file path="../../rtl/vram_controller/gci_std_display_vram_controller_sram.v"/>
+    </structure>
+    <dependencies/>
+</riviera-design>

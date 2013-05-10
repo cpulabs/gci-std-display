@@ -1,0 +1,69 @@
+<!DOCTYPE riviera-design>
+<riviera-design>
+    <version value="2013.02.81.4877"/>
+    <configurations>
+        <configuration name="optimized"/>
+        <configuration name="debug"/>
+    </configurations>
+    <properties>
+        <configuration name="debug">
+            <global>
+                <intermediate-dir value="./debug"/>
+            </global>
+            <simulation>
+                <general>
+                    <enable-debug value="true"/>
+                </general>
+            </simulation>
+            <compilation>
+                <cpp>
+                    <generate-debug-information value="true"/>
+                </cpp>
+                <verilog>
+                    <generate-debug-information value="true"/>
+                    <define-macros value="GCI_STD_DISPLAY_SSRAM;"/>
+                </verilog>
+                <vhdl>
+                    <generate-debug-information value="true"/>
+                </vhdl>
+            </compilation>
+            <library>
+                <simulated-modules value="tb_gci_std_display;"/>
+                <active-library value="gci_std_display_ssram"/>
+                <simulated-library value="gci_std_display_ssram"/>
+            </library>
+        </configuration>
+        <configuration name="optimized">
+            <global>
+                <intermediate-dir value="./optimized"/>
+            </global>
+            <compilation>
+                <cpp>
+                    <generate-debug-information value="false"/>
+                </cpp>
+                <vhdl>
+                    <generate-debug-information value="false"/>
+                </vhdl>
+                <verilog>
+                    <generate-debug-information value="false"/>
+                </verilog>
+            </compilation>
+        </configuration>
+    </properties>
+    <structure>
+        <file path="../../../tb_gci_std_display.v"/>
+        <file path="../../../model/CY7C1380_PL_SCD.v"/>
+        <file path="../../../model/display_model.v"/>
+        <file path="../../../../rtl/gci_std_async_fifo.v"/>
+        <file path="../../../../rtl/gci_std_async_fifo_double_flipflop.v"/>
+        <file path="../../../../rtl/gci_std_display.v"/>
+        <file path="../../../../rtl/gci_std_display_cmd_controller.v"/>
+        <file path="../../../../rtl/gci_std_display_device_special_memory.v"/>
+        <file path="../../../../rtl/gci_std_display_display_controller.v"/>
+        <file path="../../../../rtl/gci_std_display_font.v"/>
+        <file path="../../../../rtl/gci_std_display_timing_generator.v"/>
+        <file path="../../../../rtl/gci_std_sync_fifo.v"/>
+        <file path="../../../../rtl/vram_controller/gci_std_display_vram_controller_ssram.v"/>
+    </structure>
+    <dependencies/>
+</riviera-design>

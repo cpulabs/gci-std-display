@@ -1,0 +1,130 @@
+timestamp=1368175414487
+
+[$root]
+A/$root=22|""|0|1*9702028
+BinW64/$root=3*7235189
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[CY7C1380_PLSCD]
+A/CY7C1380_PLSCD=22|./../../../../model/CY7C1380_PL_SCD.v|184|1*9728078
+BinW64/CY7C1380_PLSCD=3*7258604
+D/CY7C1380_PLSCD=4*0
+R=./../../../../model/CY7C1380_PL_SCD.v|184
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[display_model]
+A/display_model=22|./../../../../model/display_model.v|6|1*9719437
+BinW64/display_model=3*7245468
+R=./../../../../model/display_model.v|6
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_async_fifo]
+A/gci_std_async_fifo=22|./../../../../../rtl/gci_std_async_fifo.v|27|1*9753478
+BinW64/gci_std_async_fifo=3*7271241
+R=./../../../../../rtl/gci_std_async_fifo.v|27
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_async_fifo_double_flipflop]
+A/gci_std_async_fifo_double_flipflop=22|./../../../../../rtl/gci_std_async_fifo_double_flipflop.v|4|1*9761121
+BinW64/gci_std_async_fifo_double_flipflop=3*7279308
+R=./../../../../../rtl/gci_std_async_fifo_double_flipflop.v|4
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display]
+A/gci_std_display=22|./../../../../../rtl/gci_std_display.v|49|1*9744927
+BinW64/gci_std_display=3*7269543
+R=./../../../../../rtl/gci_std_display.v|49
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display_cmd_controller]
+A/gci_std_display_cmd_controller=22|./../../../../../rtl/gci_std_display_cmd_controller.v|13|1*9777150
+BinW64/gci_std_display_cmd_controller=3*7284643
+R=./../../../../../rtl/gci_std_display_cmd_controller.v|13
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display_cram_control_ssram]
+A/gci_std_display_cram_control_ssram=22|./../../../../../rtl/vram_controller/gci_std_display_vram_controller_ssram.v|5|1*705187
+BinW64/gci_std_display_cram_control_ssram=3*537785
+R=./../../../../../rtl/vram_controller/gci_std_display_vram_controller_ssram.v|5
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display_device_special_memory]
+A/gci_std_display_device_special_memory=22|./../../../../../rtl/gci_std_display_device_special_memory.v|12|1*9763189
+BinW64/gci_std_display_device_special_memory=3*7281090
+R=./../../../../../rtl/gci_std_display_device_special_memory.v|12
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display_display_controller]
+A/gci_std_display_display_controller=22|./../../../../../rtl/gci_std_display_display_controller.v|5|1*9766202
+BinW64/gci_std_display_display_controller=3*7282893
+R=./../../../../../rtl/gci_std_display_display_controller.v|5
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display_font]
+A/gci_std_display_font=22|./../../../../../rtl/gci_std_display_font.v|3|1*9782540
+BinW64/gci_std_display_font=3*7289826
+R=./../../../../../rtl/gci_std_display_font.v|3
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display_timing_generator]
+A/gci_std_display_timing_generator=22|./../../../../../rtl/gci_std_display_timing_generator.v|6|1*9804126
+BinW64/gci_std_display_timing_generator=3*7309295
+R=./../../../../../rtl/gci_std_display_timing_generator.v|6
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display_vram_control_ssram]
+A/gci_std_display_vram_control_ssram=22|./../../../../../rtl/vram_controller/gci_std_display_vram_controller_ssram.v|5|1*810360
+BinW64/gci_std_display_vram_control_ssram=3*616093
+R=./../../../../../rtl/vram_controller/gci_std_display_vram_controller_ssram.v|5
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_display_vram_controller_ssram]
+A/gci_std_display_vram_controller_ssram=22|./../../../../../rtl/vram_controller/gci_std_display_vram_controller_ssram.v|5|1*9784455
+BinW64/gci_std_display_vram_controller_ssram=3*7294277
+R=./../../../../../rtl/vram_controller/gci_std_display_vram_controller_ssram.v|5
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[gci_std_sync_fifo]
+A/gci_std_sync_fifo=22|./../../../../../rtl/gci_std_sync_fifo.v|26|1*9812610
+BinW64/gci_std_sync_fifo=3*7316833
+R=./../../../../../rtl/gci_std_sync_fifo.v|26
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[tb_gci_std_display]
+A/tb_gci_std_display=22|./../../../../tb_gci_std_display.v|6|1*9702450
+BinW64/tb_gci_std_display=3*7235356
+R=./../../../../tb_gci_std_display.v|6
+Version=2013.02.81 (Windows64)|00000046789cd3cd51484fce8c2f2e49894fc92c2ec849ac8c2f2e2e4acc55d04e494dcbcc4bd57677f68c0f0e718977f10c0ef0718c8c0f0e0e72f455d04d494a57d02d28ca2f494d2e5130000071d217e1
+
+[~A]
+C:/altera/project/MIST1032ISA/src/device/gci-std-display/sim/tb_gci_std_display.v_CY7C1380_PL_SCD.v_display_model.v_gci_std_async_fifo.v_gci_std_async_fifo_double_flipflop.v_gci_std_display.v_gci_std_display_cmd_controller.v_gci_std_display_device_special_memory.v_gci_std_display_display_controller.v_gci_std_display_font.v_gci_std_display_timing_generator.v_gci_std_sync_fifo.v_gci_std_display_vram_controller_ssram.v=0*1601959*1621108
+C:/altera/project/gci-std-display/gci-std-display/sim/tb_gci_std_display.v_CY7C1380_PL_SCD.v_display_model.v_gci_std_async_fifo.v_gci_std_async_fifo_double_flipflop.v_gci_std_display.v_gci_std_display_cmd_controller.v_gci_std_display_device_special_memory.v_gci_std_display_display_controller.v_gci_std_display_font.v_gci_std_display_timing_generator.v_gci_std_sync_fifo.v_gci_std_display_vram_controller_ssram.v=0*3134679*3154317
+C:/altera/projects/gci-std-display/sim/tb_gci_std_display.v_CY7C1380_PL_SCD.v_display_model.v_gci_std_async_fifo.v_gci_std_async_fifo_double_flipflop.v_gci_std_display.v_gci_std_display_cmd_controller.v_gci_std_display_device_special_memory.v_gci_std_display_display_controller.v_gci_std_display_font.v_gci_std_display_timing_generator.v_gci_std_sync_fifo.v_gci_std_display_vram_controller_ssram.v=0*2652847*2672294
+LastVerilogToplevel=tb_gci_std_display
+ModifyID=12658
+Version=73
+
+[~MFT]
+0=1595|0gci_std_display_ssram.mgf|3154317|1716398
+1=2475|1gci_std_display_ssram.mgf|9812610|9667774
+3=2475|3gci_std_display_ssram.mgf|7316833|7213200
+4=0|4gci_std_display_ssram.mgf|0|0
+
+[~U]
+$root=12|0*3118141|
+CY7C1380_PLSCD=12|0*3120927|
+display_model=12|0*3120213|
+gci_std_async_fifo=12|0*3124297|
+gci_std_async_fifo_double_flipflop=12|0*3125331|
+gci_std_display=12|0*3122050|
+gci_std_display_cmd_controller=12|0*3128249|
+gci_std_display_cram_control_ssram=12|0*211733||0x10
+gci_std_display_device_special_memory=12|0*3125696|
+gci_std_display_display_controller=12|0*3126321|
+gci_std_display_font=12|0*3129093|
+gci_std_display_timing_generator=12|0*3132387|
+gci_std_display_vram_control_ssram=12|0*245877||0x10
+gci_std_display_vram_controller_ssram=12|0*3129425|
+gci_std_sync_fifo=12|0*3133966|
+tb_gci_std_display=12|0*3118515||0x10
+

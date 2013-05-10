@@ -1,0 +1,13 @@
+"../../../../../rtl/gci_std_display_display_controller.v"	1
+"../../../../../rtl/gci_std_display_timing_generator.v"	1
+"../../../../../rtl/gci_std_display_cmd_controller.v"	1
+"../../../../../rtl/gci_std_display.v"	1
+"../../../../tb_gci_std_display.v"	1
+"../../../../model/display_model.v"	1
+"../../../../../rtl/gci_std_display_font.v"	1
+"../../../../../rtl/gci_std_sync_fifo.v"	1
+"../../../../../rtl/vram_controller/gci_std_display_vram_controller_sram.v"	2
+"../../../../../rtl/gci_std_display_device_special_memory.v"	1
+"../../../../../rtl/gci_std_async_fifo.v"	1
+"../../../../model/is61wv102416bll.v"	1
+"../../../../../rtl/gci_std_async_fifo_double_flipflop.v"	1

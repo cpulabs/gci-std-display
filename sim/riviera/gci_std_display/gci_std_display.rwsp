@@ -1,0 +1,21 @@
+<!DOCTYPE riviera-workspace>
+<riviera-workspace>
+    <version value="2013.02.81.4877"/>
+    <active-design name="gci_std_display_ssram"/>
+    <active-configuration name="debug"/>
+    <designs>
+        <design path="gci_std_display_sram/gci_std_display_sram.rdsn"/>
+        <design path="gci_std_display_ssram/gci_std_display_ssram.rdsn"/>
+    </designs>
+    <dependencies/>
+    <configurations>
+        <configuration name="optimized">
+            <design name="gci_std_display_sram" configuration="optimized"/>
+            <design name="gci_std_display_ssram" configuration="optimized"/>
+        </configuration>
+        <configuration name="debug">
+            <design name="gci_std_display_sram" configuration="debug"/>
+            <design name="gci_std_display_ssram" configuration="debug"/>
+        </configuration>
+    </configurations>
+</riviera-workspace>

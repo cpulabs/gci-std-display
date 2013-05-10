@@ -1,0 +1,69 @@
+V 000046 56 1200 1368175414445 CY7C1380_PLSCD
+(_unit CY7C1380_PLSCD
+	(_specify
+		(_tchk width 0 438
+			(_port CLK (negedge))
+		)
+		(_tchk width 0 439
+			(_port CLK (posedge))
+		)
+		(_tchk period 0 440
+			(_port CLK (negedge))
+		)
+		(_tchk period 0 441
+			(_port CLK (posedge))
+		)
+		(_tchk setuphold 0 442
+			(_port CLK (posedge))
+			(_port ADSP_N ())
+		)
+		(_tchk setuphold 0 443
+			(_port CLK (posedge))
+			(_port ADSC_N ())
+		)
+		(_tchk setuphold 0 444
+			(_port CLK (posedge))
+			(_port ADDR ())
+		)
+		(_tchk setuphold 0 445
+			(_port CLK (posedge))
+			(_port BWa_N ())
+		)
+		(_tchk setuphold 0 446
+			(_port CLK (posedge))
+			(_port BWb_N ())
+		)
+		(_tchk setuphold 0 447
+			(_port CLK (posedge))
+			(_port BWc_N ())
+		)
+		(_tchk setuphold 0 448
+			(_port CLK (posedge))
+			(_port BWd_N ())
+		)
+		(_tchk setuphold 0 449
+			(_port CLK (posedge))
+			(_port BWE_N ())
+		)
+		(_tchk setuphold 0 450
+			(_port CLK (posedge))
+			(_port GW_N ())
+		)
+		(_tchk setuphold 0 451
+			(_port CLK (posedge))
+			(_port CE1_N ())
+		)
+		(_tchk setuphold 0 452
+			(_port CLK (posedge))
+			(_port CE2 ())
+		)
+		(_tchk setuphold 0 453
+			(_port CLK (posedge))
+			(_port CE3_N ())
+		)
+		(_tchk setuphold 0 454
+			(_port CLK (posedge))
+			(_port ADV_N ())
+		)
+	)
+)

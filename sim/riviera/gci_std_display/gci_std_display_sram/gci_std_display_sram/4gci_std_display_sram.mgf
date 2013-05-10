@@ -1,0 +1,52 @@
+V 000046 56 912 1368176495429 is61wv102416bll
+(_unit is61wv102416bll
+	(_specify
+		(_specparam tSA integer 0)
+		(_specparam tAW integer 8)
+		(_specparam tSCE integer 8)
+		(_specparam tSD integer 6)
+		(_specparam tPWE2 integer 8)
+		(_specparam tPWE1 integer 8)
+		(_specparam tPBW integer 8)
+		(_tchk setup 0 124
+			(_port A ())
+			(_port CE_ (negedge))
+		)
+		(_tchk setup 0 125
+			(_port A ())
+			(_port CE_ (posedge))
+		)
+		(_tchk setup 0 126
+			(_port IO ())
+			(_port CE_ (posedge))
+		)
+		(_tchk setup 0 127
+			(_port A ())
+			(_port WE_ (negedge))
+		)
+		(_tchk setup 0 128
+			(_port IO ())
+			(_port WE_ (posedge))
+		)
+		(_tchk setup 0 129
+			(_port A ())
+			(_port LB_ (negedge))
+		)
+		(_tchk setup 0 130
+			(_port A ())
+			(_port UB_ (negedge))
+		)
+		(_tchk width 0 132
+			(_port CE_ (negedge))
+		)
+		(_tchk width 0 133
+			(_port LB_ (negedge))
+		)
+		(_tchk width 0 134
+			(_port UB_ (negedge))
+		)
+		(_tchk width 0 138
+			(_port WE_ (negedge))
+		)
+	)
+)
