@@ -23,7 +23,7 @@ Takahiro Ito
 `default_nettype none
 
 
-module gci_std_sync_fifo #(
+module gci_std_display_sync_fifo #(
 		parameter P_N = 16,
 		parameter P_DEPTH = 4,
 		parameter P_DEPTH_N = 2

@@ -24,7 +24,7 @@ Takahiro Ito
 
 `default_nettype none
 
-module gci_std_async_fifo #(
+module gci_std_display_async_fifo #(
 		parameter P_N = 16,
 		parameter P_DEPTH = 4,
 		parameter P_DEPTH_N = 2
@@ -105,7 +105,7 @@ module gci_std_async_fifo #(
 	/***************************************************
 	Counter Buffer
 	***************************************************/	
-	gci_std_async_fifo_double_flipflop #(P_DEPTH_N+1) D_FIFO_READ(
+	gci_std_display_async_fifo_double_flipflop #(P_DEPTH_N+1) D_FIFO_READ(
 		.iCLOCK(iWR_CLOCK),
 		.inRESET(inRESET),
 		.iREQ_DATA(bin2gray(b_rd_counter)),
@@ -114,7 +114,7 @@ module gci_std_async_fifo #(
 	assign binary_d_fifo_rd_counter = gray2bin(gray_d_fifo_rd_counter);
 	
 	
-	gci_std_async_fifo_double_flipflop #(P_DEPTH_N+1) D_FIFO_WRITE(
+	gci_std_async_display_fifo_double_flipflop #(P_DEPTH_N+1) D_FIFO_WRITE(
 		.iCLOCK(iRD_CLOCK),
 		.inRESET(inRESET),
 		.iREQ_DATA(bin2gray(b_wr_counter)),

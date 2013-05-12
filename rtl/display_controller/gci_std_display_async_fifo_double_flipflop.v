@@ -1,7 +1,7 @@
 
 `default_nettype none
 
-module gci_std_async_fifo_double_flipflop #(
+module gci_std_display_async_fifo_double_flipflop #(
 		parameter N = 1
 	)(
 		input iCLOCK,

@@ -5,14 +5,27 @@
 module gci_std_display_display_controller(
 		//System
 		input wire iCLOCK,
-		input wire inRESET,				
+		input wire inRESET,
+		//Display Clock
+		input wire iDISP_CLOCK,				
 		//Write Reqest
 		input wire iIF_WR_REQ,
 		output wire oIF_WR_BUSY,
 		input wire [31:0] iIF_WR_ADDR,
 		input wire [31:0] iIF_WR_DATA,
-		//Display Clock
-		input wire iDISP_CLOCK,
+		//VRAM IF
+		output wire oVRAM_ARBIT_REQ,
+		input wire iVRAM_ARBIT_ACK,
+		output wire oVRAM_ARBIT_FINISH,
+		output wire oVRAM_ENA,
+		input wire iVRAM_BUSY,
+		output wire oVRAM_RW,
+		output wire [P_MEM_ADDR_N-1:0] oVRAM_ADDR,
+		output wire [31:0] oVRAM_DATA,
+		input wire iVRAM_VALID,
+		output wire oVRAM_BUSY,
+		input wire [31:0] iVRAM_DATA,
+		/*
 		`ifdef GCI_STD_DISPLAY_SRAM
 			//SRAM
 			output wire onSRAM_CE,
@@ -39,6 +52,7 @@ module gci_std_display_display_controller(
 			inout wire [31:0] ioSSRAM_DATA,
 			inout wire [3:0] ioSSRAM_PARITY,
 		`endif
+		*/
 		//Display
 		output wire oDISP_CLOCK,
 		output wire onDISP_RESET,
@@ -84,6 +98,7 @@ module gci_std_display_display_controller(
 	);
 
 	//Vram Controll
+	/*
 	`ifdef GCI_STD_DISPLAY_SRAM
 		gci_std_display_vram_controller_sram VRAM_CTRL_SRAM(
 			.iGCI_CLOCK(iCLOCK),
@@ -138,6 +153,11 @@ module gci_std_display_display_controller(
 			.ioSSRAM_PARITY(ioSSRAM_PARITY)
 		);
 	`endif
+	*/
+	
+	
+	
+	
 	//Display timing 
 	gci_std_display_timing_generator DISPLAY_TIMING(
 		.iDISP_CLOCK(iDISP_CLOCK),
