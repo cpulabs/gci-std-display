@@ -2,25 +2,34 @@
 `default_nettype none
 
 module gci_std_display_vram_interface #(
-		parameter P_AREA_H = 640,
-		parameter P_AREA_Y = 480
+		parameter P_MEM_ADDR_N = 19
 	)(
 		input wire iCLOCK,
 		input wire inRESET,
 		input wire iRESET_SYNC,
-		//User IF 
-		input wire iIF_ENA,
-		output wire oIF_BUSY,
-		input wire iIF_RW,
-		input wire [18:0] iIF_ADDR,
-		input wire [15:0] iIF_DATA,
-		output wire oIF_VALID,
-		output wire [31:0] oIF_DATA,
-		//Read IF
-		input wire iRD_ENA,
-		input wire iRD_SYNC,
-		output wire oRD_VALID,
-		output wire [15:0] oRD_DATA,
+		//IF0 (Priority IF0>IF1)
+		input wire iIF0_REQ,
+		output wire oIF0_ACK,
+		input wire iIF0_FINISH,
+		input wire iIF0_ENA,
+		output wire oIF0_BUSY,
+		input wire iIF0_RW,
+		input wire [P_MEM_ADDR_N-1:0] iIF0_ADDR,
+		input wire [31:0] iIF0_DATA,
+		output wire oIF0_VALID,
+		output wire [31:0] oIF0_DATA,
+		//IF1
+		input wire iIF1_REQ,
+		output wire oIF1_ACK,
+		input wire iIF1_FINISH,
+		input wire iIF1_ENA,
+		output wire oIF1_BUSY,
+		input wire iIF1_RW,
+		input wire [P_MEM_ADDR_N-1:0] iIF1_ADDR,
+		input wire [31:0] iIF1_DATA,
+		output wire oIF1_VALID,
+		output wire [31:0] oIF1_DATA,
+		
 		//Vram Interface
 		output wire oVRAM_ARBIT_REQ,
 		input wire iVRAM_ARBIT_ACK,
@@ -32,24 +41,7 @@ module gci_std_display_vram_interface #(
 		output wire [31:0] oVRAM_DATA,
 		input wire iVRAM_VALID,
 		output wire oVRAM_BUSY,
-		input wire [31:0] iVRAM_DATA,
-	);
-	
-	/***************************************************
-	Input FIFO
-	***************************************************/
-	gci_std_sync_fifo #(36, 64, 6) VRAMWRITE_FIFO(
-		.inRESET(inRESET),
-		.iCLOCK(iGCI_CLOCK),
-		.iREMOVE(iRESET_SYNC),
-		.oCOUNT(),
-		.iWR_EN(iIF_WRITE_REQ),
-		.iWR_DATA({iIF_RW, iIF_ADDR, iIF_DATA}),
-		.oWR_FULL(oIF_WRITE_FULL),
-		.iRD_EN(vram_write_sequence_condition),
-		.oRD_DATA({writefifo_addr, writefifo_data}),
-		.oRD_EMPTY(writefifo_empty),
-		.oRD_ALMOST_EMPTY()
+		input wire [31:0] iVRAM_DATA
 	);
 	
 	
@@ -140,77 +132,6 @@ module gci_std_display_vram_interface #(
 				default:
 					begin
 						b_vram_if_state <= P_L_VRAM_IF_IDLE;
-					end
-			endcase
-		end
-	end
-	
-	
-	/***************************************************
-	Output FIFO
-	***************************************************/
-	wire [31:0] vramfifo1_data;
-	wire vramfifo0_full;
-	wire vramfifo1_empty;
-	gci_std_sync_fifo #(32, P_READ_SYNC_FIFO_DEPTH, P_READ_SYNC_FIFO_DEPTH_N) VRAMREAD_FIFO0(
-		.inRESET(inRESET),
-		.iREMOVE(iRESET_SYNC),
-		.iCLOCK(iGCI_CLOCK),
-		.iWR_EN(b_get_data_valid && !vramfifo0_full),
-		.iWR_DATA(ioSSRAM_DATA),
-		.oWR_FULL(vramfifo0_full),
-		.oWR_ALMOST_FULL(vramfifo0_almost_full),
-		.iRD_EN(!vramfifo0_empty && !vramfifo1_full),
-		.oRD_DATA(vramfifo0_data),
-		.oRD_EMPTY(vramfifo0_empty)
-	);
-	gci_std_async_fifo #(32, P_READ_ASYNC_FIFO_DEPTH, P_READ_ASYNC_FIFO_DEPTH_N) VRAMREAD_FIFO1(
-		.inRESET(inRESET),
-		.iREMOVE(iRESET_SYNC),
-		.iWR_CLOCK(iGCI_CLOCK),
-		.iWR_EN(!vramfifo0_empty && !vramfifo1_full),
-		.iWR_DATA(vramfifo0_data),
-		.oWR_FULL(vramfifo1_full),
-		.iRD_CLOCK(iDISP_CLOCK),
-		.iRD_EN(!vramfifo1_empty && b_dispout_state == P_L_DISPOUT_STT_1ST),
-		.oRD_DATA(vramfifo1_data),
-		.oRD_EMPTY(vramfifo1_empty)
-	);
-	
-	
-	parameter P_L_DISPOUT_STT_1ST = 1'b0;
-	parameter P_L_DISPOUT_STT_2RD = 1'b1;
-	
-	reg b_dispout_state;
-	reg [15:0] b_dispout_current_data;
-	reg [15:0] b_dispout_next_data;
-	
-	always@(posedge iDISP_CLOCK or negedge inRESET)begin
-		if(!inRESET)begin
-			b_dispout_state <= P_L_DISPOUT_STT_1ST;
-			b_dispout_current_data <= 16'h0;
-			b_dispout_next_data <= 16'h0;
-		end
-		else if(iRESET_SYNC)begin
-			b_dispout_state <= P_L_DISPOUT_STT_1ST;
-			b_dispout_current_data <= 16'h0;
-			b_dispout_next_data <= 16'h0;
-		end
-		else begin
-			case(b_dispout_state)
-				P_L_DISPOUT_STT_1ST:
-					begin
-						if(!vramfifo1_empty)begin
-							{b_dispout_next_data, b_dispout_current_data} <= vramfifo1_data;
-							b_dispout_state <= P_L_DISPOUT_STT_2RD;
-						end
-					end
-				P_L_DISPOUT_STT_2RD:
-					begin
-						if(iDISP_REQ)begin
-							b_dispout_current_data <= b_dispout_next_data;
-							b_dispout_state <= P_L_DISPOUT_STT_1ST;
-						end
 					end
 			endcase
 		end

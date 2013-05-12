@@ -155,6 +155,67 @@ module gci_std_display_display_controller(
 	`endif
 	*/
 	
+	gci_std_display_vram_interface VRAM_IF_CTRL(
+		.iCLOCK(),
+		.inRESET(),
+		.iRESET_SYNC(),
+		//IF0
+		.iIF0_REQ(),
+		.oIF0_ACK(),
+		.iIF0_FINISH(),
+		.iIF0_ENA(),
+		.oIF0_BUSY(),
+		.iIF0_RW(),
+		.iIF0_ADDR(),
+		.iIF0_DATA(),
+		.oIF0_VALID(),
+		.oIF0_DATA(),
+		//IF1
+		.iIF1_REQ(),
+		.oIF1_ACK(),
+		.iIF1_FINISH(),
+		.iIF1_ENA(),
+		.oIF1_BUSY(),
+		.iIF1_RW(),
+		.iIF1_ADDR(),
+		.iIF1_DATA(),
+		.oIF1_VALID(),
+		.oIF1_DATA(),
+		//Vram Interface
+		.oVRAM_ARBIT_REQ(),
+		.iVRAM_ARBIT_ACK(),
+		.oVRAM_ARBIT_FINISH(),
+		.oVRAM_ENA(),
+		.iVRAM_BUSY(),
+		.oVRAM_RW(),
+		.oVRAM_ADDR(),
+		.oVRAM_DATA(),
+		.iVRAM_VALID(),
+		.oVRAM_BUSY(),
+		.iVRAM_DATA()
+	);
+	
+	
+	gci_std_display_vram_interface VRAM_READ_CTRL(
+		.iGCI_CLOCK(),
+		.iDISP_CLOCK(),
+		.inRESET(),
+		.iRESET_SYNC(),
+		//Read Request
+		.iRD_ENA(),
+		.iRD_SYNC(),
+		.oRD_VALID(),
+		.oRD_DATA_R(),
+		.oRD_DATA_G(),
+		.oRD_DATA_B(),
+		//Memory IF
+		.oIF_REQ(),
+		.iIF_ACK(),
+		.oIF_FINISH(),
+		.oIF_ENA(),
+		.iIF_BUSY(),
+		.oIF_ADDR()
+	);
 	
 	
 	
