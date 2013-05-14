@@ -3,7 +3,7 @@
 
 `default_nettype none
 
-module gci_std_display_vram_interface #(
+module gci_std_display_data_read #(
 		parameter P_AREA_H = 640,
 		parameter P_AREA_Y = 480,
 		parameter P_READ_FIFO_DEPTH = 64,
@@ -28,7 +28,9 @@ module gci_std_display_vram_interface #(
 		output wire oIF_FINISH,
 		output wire oIF_ENA,
 		input wire iIF_BUSY,
-		output wire [P_MEM_ADDR_N-1:0] oIF_ADDR
+		output wire [P_MEM_ADDR_N-1:0] oIF_ADDR,
+		input wire iIF_VALID,
+		input wire [31:0] iIF_DATA
 	);
 	
 	//Main State

@@ -53,6 +53,9 @@ module gci_std_display_display_controller(
 			inout wire [3:0] ioSSRAM_PARITY,
 		`endif
 		*/
+
+		
+		
 		//Display
 		output wire oDISP_CLOCK,
 		output wire onDISP_RESET,
@@ -156,65 +159,79 @@ module gci_std_display_display_controller(
 	*/
 	
 	gci_std_display_vram_interface VRAM_IF_CTRL(
-		.iCLOCK(),
-		.inRESET(),
-		.iRESET_SYNC(),
-		//IF0
-		.iIF0_REQ(),
-		.oIF0_ACK(),
-		.iIF0_FINISH(),
-		.iIF0_ENA(),
-		.oIF0_BUSY(),
-		.iIF0_RW(),
-		.iIF0_ADDR(),
-		.iIF0_DATA(),
-		.oIF0_VALID(),
-		.oIF0_DATA(),
+		.iGCI_CLOCK(iGCI_CLOCK),
+		.inRESET(inRESET),
+		.iRESET_SYNC(iRESET_SYNC),
+		//IF0 (Priority IF0>IF1)
+		.iIF0_REQ(vramread2vramif_req),
+		.oIF0_ACK(vramif2vramread_ack),
+		.iIF0_FINISH(vramread2vramif_finish),
+		.iIF0_ENA(vramread2vramif_ena),
+		.oIF0_BUSY(vramif2vramread_busy),
+		.iIF0_RW(1'b0),
+		.iIF0_ADDR(vramread2vramif_addr),
+		.iIF0_DATA(32'h0),
+		.oIF0_VALID(vramif2vramread_valid),
+		.iIF0_BUSY(1'b0),
+		.oIF0_DATA(vramif2vramread_data),
 		//IF1
 		.iIF1_REQ(),
 		.oIF1_ACK(),
 		.iIF1_FINISH(),
+		.oIF1_BREAK(),
 		.iIF1_ENA(),
 		.oIF1_BUSY(),
 		.iIF1_RW(),
 		.iIF1_ADDR(),
 		.iIF1_DATA(),
 		.oIF1_VALID(),
+		.iIF1_BUSY(),
 		.oIF1_DATA(),
 		//Vram Interface
-		.oVRAM_ARBIT_REQ(),
-		.iVRAM_ARBIT_ACK(),
-		.oVRAM_ARBIT_FINISH(),
-		.oVRAM_ENA(),
-		.iVRAM_BUSY(),
-		.oVRAM_RW(),
-		.oVRAM_ADDR(),
-		.oVRAM_DATA(),
-		.iVRAM_VALID(),
-		.oVRAM_BUSY(),
-		.iVRAM_DATA()
+		.oVRAM_ARBIT_REQ(oVRAM_ARBIT_REQ),
+		.iVRAM_ARBIT_ACK(iVRAM_ARBIT_ACK),
+		.oVRAM_ARBIT_FINISH(oVRAM_ARBIT_FINISH),
+		.oVRAM_ENA(oVRAM_ENA),
+		.iVRAM_BUSY(iVRAM_BUSY),
+		.oVRAM_RW(oVRAM_RW),
+		.oVRAM_ADDR(oVRAM_ADDR),
+		.oVRAM_DATA(oVRAM_DATA),
+		.iVRAM_VALID(iVRAM_VALID),
+		.oVRAM_BUSY(oVRAM_BUSY),
+		.iVRAM_DATA(iVRAM_DATAs)
 	);
 	
 	
-	gci_std_display_vram_interface VRAM_READ_CTRL(
-		.iGCI_CLOCK(),
-		.iDISP_CLOCK(),
-		.inRESET(),
-		.iRESET_SYNC(),
+	wire vramread2vramif_req;
+	wire vramif2vramread_ack;
+	wire vramread2vramif_finish;
+	wire vramread2vramif_ena;
+	wire vramif2vramread_busy;
+	wire [P_MEM_ADDR_N-:0] vramread2vramif_addr;
+	wire vramif2vramread_valid;
+	wire [31:0] vramif2vramread_data;
+	
+	gci_std_display_data_read VRAM_READ_CTRL(
+		.iGCI_CLOCK(iGCI_CLOCK),
+		.iDISP_CLOCK(iDISP_CLOCK),
+		.inRESET(inRESET),
+		.iRESET_SYNC(iRESET_SYNC),
 		//Read Request
-		.iRD_ENA(),
-		.iRD_SYNC(),
+		.iRD_ENA(disptiming_data_req),
+		.iRD_SYNC(disptiming_data_sync),
 		.oRD_VALID(),
-		.oRD_DATA_R(),
-		.oRD_DATA_G(),
-		.oRD_DATA_B(),
+		.oRD_DATA_R(vram2display_r),
+		.oRD_DATA_G(vram2display_g),
+		.oRD_DATA_B(vram2display_b),
 		//Memory IF
-		.oIF_REQ(),
-		.iIF_ACK(),
-		.oIF_FINISH(),
-		.oIF_ENA(),
-		.iIF_BUSY(),
-		.oIF_ADDR()
+		.oIF_REQ(vramread2vramif_req),
+		.iIF_ACK(vramif2vramread_ack),
+		.oIF_FINISH(vramread2vramif_finish),
+		.oIF_ENA(vramread2vramif_ena),
+		.iIF_BUSY(vramif2vramread_busy),
+		.oIF_ADDR(vramread2vramif_addr),
+		.iIF_VALID(vramif2vramread_valid),
+		.iIF_DATA(vramif2vramread_data)
 	);
 	
 	
