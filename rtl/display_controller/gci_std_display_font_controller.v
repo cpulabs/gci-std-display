@@ -10,7 +10,9 @@ Command (Address)
 ****************************************************************************/
 
 
-module gci_std_display_cmd_controller(
+module gci_std_display_request_controller #(
+		parameter P_MEM_ADDR_N = 23
+	)(
 		input wire iCLOCK,
 		input wire inRESET,
 		//BUS
@@ -19,11 +21,103 @@ module gci_std_display_cmd_controller(
 		input wire [31:0] iBUSMOD_DATA,
 		output wire oBUSMOD_WAIT,
 		//VRAM
+		/*
 		input wire iVRAM_WAIT,
 		output wire oVRAM_WRITE_REQ,
 		output wire [18:0] oVRAM_WRITE_ADDR,
 		output wire [15:0] oVRAM_WRITE_DATA
+		*/
+		
+		//New
+		output wire oBUS_VALID,
+		output wire [31:0] oBUS_DATA, 
+		//New
+		output wire oIF_REQ,
+		input wire iIF_ACK,
+		output wire oIF_FINISH,
+		input wire iIF_BREAK,
+		input wire iIF_BUSY,
+		output wire oIF_ENA,
+		output wire oIF_RW,
+		output wire [P_MEM_ADDR_N-1:0] oIF_ADDR,
+		output wire [7:0] oIF_R,
+		output wire [7:0] oIF_G,
+		output wire [7:0] oIF_B,
+		input wire iIF_VALID,
+		input wire [31:0] iIF_DATA
 	);
+	
+	wire reqfifo_wr_full;
+	wire reqfifo_rd_empty;
+	
+	gci_std_display_sync_fifo #(64, 16, 4) REQ_FIFO 
+		.iCLOCK(iCLOCK),
+		.inRESET(inRESET),
+		.iREMOVE(1'b0),
+		//Counter
+		.oCOUNT(),
+		//WR
+		.iWR_EN(iBUSMOD_REQ && !reqfifo_wr_full),
+		.iWR_DATA({iBUSMOD_ADDR, iBUSMOD_DATA}),
+		.oWR_FULL(reqfifo_wr_full),
+		.oWR_ALMOST_FULL(),
+		//RD
+		.iRD_EN(),
+		.oRD_DATA(),
+		.oRD_EMPTY(reqfifo_rd_empty),
+		.oRD_ALMOST_EMPTY()
+	);
+	
+	assign oBUSMOD_WAIT = reqfifo_wr_full;
+	
+	
+	localparam P_L_MAIN_STT_IDLE = 2'h0;
+	localparam P_L_MAIN_STT_IF_REQ = 2'h1;
+	localparam P_L_MAIN_STT_IF_WORK = 2'h2;
+	
+	reg [1:0] b_main_state;
+	
+	always@(posedge iCLOCK or negedge inRESET)begin
+		if(!inRESET)begin
+			b_main_state <= P_L_MAIN_STT_IDLE;
+		end
+		else begin
+			case(b_main_state)
+				P_L_MAIN_STT_IDLE:
+					begin
+						if(!reqfifo_rd_empty)begin
+							b_main_state <= P_L_MAIN_STT_IF_REQ;
+						end
+					end
+				P_L_MAIN_STT_IF_REQ:
+					begin
+						if(iIF_ACK)begin
+							b_main_state <= P_L_MAIN_STT_IF_WORK;
+						end
+					end
+				P_L_MAIN_STT_IF_WORK:
+					begin
+						if(iIF_BREAK || reqfifo_rd_empty)begin
+							b_main_state <= P_L_MAIN_STT_IDLE;
+						end
+					end
+				default:
+					begin
+						b_main_state <= P_L_MAIN_STT_IDLE;
+					end
+			endcase
+		end
+	end
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Old
 	
 	localparam P_L_STT_IDLE = 2'h0;
 	localparam P_L_STT_CHARACTOR = 2'h1;

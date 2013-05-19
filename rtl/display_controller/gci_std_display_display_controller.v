@@ -87,7 +87,7 @@ module gci_std_display_display_controller(
 	wire disptiming_blank;
 	
 	//VRAM Write Command Controller 
-	gci_std_display_cmd_controller CMD_CONTROLLER(
+	gci_std_display_font_controller FONT_CONTROLLER(
 		.iCLOCK(iCLOCK),
 		.inRESET(inRESET),
 		.iBUSMOD_REQ(iIF_WR_REQ && !bus_req_wait),
