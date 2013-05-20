@@ -11,6 +11,9 @@ Command (Address)
 
 
 module gci_std_display_request_controller #(
+		parameter P_AREA_H = 640,
+		parameter P_AREA_V = 480,
+		parameter P_AREAA_HV_N = 19,
 		parameter P_MEM_ADDR_N = 23
 	)(
 		input wire iCLOCK,
@@ -47,8 +50,13 @@ module gci_std_display_request_controller #(
 		input wire [31:0] iIF_DATA
 	);
 	
+	
 	wire reqfifo_wr_full;
 	wire reqfifo_rd_empty;
+	
+	wire [31:0] reqfifo_rd_data;
+	wire [31:0] reqfifo_rd_addr;
+	wire reqfifo_rd_rw;
 	
 	gci_std_display_sync_fifo #(64, 16, 4) REQ_FIFO 
 		.iCLOCK(iCLOCK),
@@ -63,19 +71,62 @@ module gci_std_display_request_controller #(
 		.oWR_ALMOST_FULL(),
 		//RD
 		.iRD_EN(),
-		.oRD_DATA(),
+		.oRD_DATA({reqfifo_rd_rw, reqfifo_rd_addr, reqfifo_rd_data}),
 		.oRD_EMPTY(reqfifo_rd_empty),
 		.oRD_ALMOST_EMPTY()
 	);
 	
+	gci_std_display_charactor #(P_AREA_H, P_AREA_V, P_AREAA_HV_N, P_MEM_ADDR_N) CHARACTOR_CONTROLLER(
+		.iCLOCK(iCLOCK),
+		.inRESET(inRESET),
+		.iRESET_SYNC(1'b0),
+		//Req
+		.iIF_VALID(),
+		.oIF_BUSY(),
+		.iIF_ADDR(),	//Charactor Addr
+		.iIF_DATA(),
+		//Out
+		.oIF_FINISH()
+		.oIF_VALID,
+		.iIF_BUSY,
+		.oIF_ADDR,
+		.oIF_DATA
+	);
+	
+	
+	gci_std_display_clear #(P_AREA_H, P_AREA_V, P_AREAA_HV_N, P_MEM_ADDR_N) CLEAR_CONTROLLER(
+		.iCLOCK(iCLOCK),
+		.inRESET(inRESET),
+		.iRESET_SYNC(1'b0),
+		//Req
+		.iIF_VALID(),
+		.oIF_BUSY(),
+		.iIF_DATA(),
+		//Out
+		.oIF_FINISH()
+		.oIF_VALID(),
+		.iIF_BUSY(),
+		.oIF_ADDR(),
+		.oIF_DATA()
+	);
+	
+	
+	
+	
+	
 	assign oBUSMOD_WAIT = reqfifo_wr_full;
 	
+	wire request_break_condition = iIF_BREAK || reqfifo_rd_empty;
+	wire reqfifo_read_condition = 
 	
-	localparam P_L_MAIN_STT_IDLE = 2'h0;
-	localparam P_L_MAIN_STT_IF_REQ = 2'h1;
-	localparam P_L_MAIN_STT_IF_WORK = 2'h2;
 	
-	reg [1:0] b_main_state;
+	localparam P_L_MAIN_STT_IDLE = 3'h0;
+	localparam P_L_MAIN_STT_IF_REQ = 3'h1;
+	localparam P_L_MAIN_STT_IF_WORK = 3'h2;
+	localparam P_L_MAIN_STT_IF_READ_WAIT = 3'h3;
+	localparam P_L_MAIN_STT_IF_END = 3'h4;
+	
+	reg [2:0] b_main_state;
 	
 	always@(posedge iCLOCK or negedge inRESET)begin
 		if(!inRESET)begin
@@ -97,9 +148,33 @@ module gci_std_display_request_controller #(
 					end
 				P_L_MAIN_STT_IF_WORK:
 					begin
-						if(iIF_BREAK || reqfifo_rd_empty)begin
-							b_main_state <= P_L_MAIN_STT_IDLE;
+						if(request_break_condition)begin
+							b_main_state <= P_L_MAIN_STT_IF_END;
 						end
+						else if(reqfifo_rd_rw)begin
+							b_main_state <= P_L_MAIN_STT_IF_WRITE;
+						end
+						else begin
+							b_main_state <= P_L_MAIN_STT_IF_READ;
+						end
+					end
+				P_L_MAIN_STT_IF_READ_WAIT:
+					begin
+						if(iIF_VALID)begin
+							if(request_break_condition)begin
+								b_main_state <= P_L_MAIN_STT_IF_END;
+							end
+							else if(reqfifo_rd_rw)begin
+								b_main_state <= P_L_MAIN_STT_IF_WRITE;
+							end
+							else begin
+								b_main_state <= P_L_MAIN_STT_IF_READ;
+							end
+						end
+					end
+				P_L_MAIN_STT_IF_END:
+					begin
+						b_main_state <= P_L_MAIN_STT_IDLE;
 					end
 				default:
 					begin
@@ -107,11 +182,10 @@ module gci_std_display_request_controller #(
 					end
 			endcase
 		end
-	end
+	end //main(vram-interface) state always
 	
 	
-	
-	
+
 	
 	
 	
