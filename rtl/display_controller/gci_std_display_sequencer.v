@@ -1,7 +1,7 @@
 
 `default_nettype none
 
-module gci_std_display_clear #(
+module gci_std_display_sequencer #(
 		//Area
 		parameter P_AREA_H = 640,
 		parameter P_AREA_V = 480,

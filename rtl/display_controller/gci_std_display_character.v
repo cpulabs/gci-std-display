@@ -1,7 +1,7 @@
 
 `default_nettype none
 
-module gci_std_display_charactor #(
+module gci_std_display_character #(
 		//Area
 		parameter P_AREA_H = 640,
 		parameter P_AREA_V = 480,

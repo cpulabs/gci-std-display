@@ -2,17 +2,29 @@
 `default_nettype none
 //`include "gci_std_display_parameter.h"
 
-module gci_std_display_display_controller(
+module gci_std_display_display_controller #(
+		parameter P_VRAM_SIZE = 307200,
+		parameter P_AREA_H = 640,
+		parameter P_AREA_V = 480,
+		parameter P_AREAA_HV_N = 19,
+		parameter P_MEM_ADDR_N = 23
+	)(
 		//System
 		input wire iCLOCK,
 		input wire inRESET,
+		input wire iRESET_SYNC,
 		//Display Clock
 		input wire iDISP_CLOCK,				
 		//Write Reqest
 		input wire iIF_WR_REQ,
 		output wire oIF_WR_BUSY,
+		input wire iIF_WR_RW,
 		input wire [31:0] iIF_WR_ADDR,
 		input wire [31:0] iIF_WR_DATA,
+		//Read
+		output wire oIF_RD_VALID,
+		input wire iIF_RD_BUSY,
+		output wire oIF_RD_DATA,
 		//VRAM IF
 		output wire oVRAM_ARBIT_REQ,
 		input wire iVRAM_ARBIT_ACK,
@@ -53,8 +65,6 @@ module gci_std_display_display_controller(
 			inout wire [3:0] ioSSRAM_PARITY,
 		`endif
 		*/
-
-		
 		
 		//Display
 		output wire oDISP_CLOCK,
@@ -66,7 +76,118 @@ module gci_std_display_display_controller(
 		output wire [9:0] oDISP_DATA_R,
 		output wire [9:0] oDISP_DATA_G,
 		output wire [9:0] oDISP_DATA_B
-	);	
+	);
+	
+	wire register_busy_condition = 
+	wire display_busy_condition = 
+	wire sequence_busy_condition = 
+	
+	wire register_ctrl_condition = iIF_WR_ADDR <= 32'hF && (iIF_WR_ADDR == 32'h4)? !iIF_WR_RW : 1'b1;
+	wire display_ctrl_condition = iIF_WR_ADDR > 32'hF;
+	wire sequence_ctrl_condition = (iIF_WR_ADDR == 32'h4) && iIF_WR_RW;
+	
+	localparam P_L_MAIN_STT_WRITE = 1'b0;
+	localparam P_L_MAIN_STT_READ_WAIT = 1'b1;
+	
+	
+	reg b_main_state;
+	always@(posedge iCLOCK or negedge inRESET)begin
+		if(!inRESET)begin
+			b_main_state <= P_L_MAIN_STT_WRITE;
+		end
+		else if(iRESET_SYNC)begin
+			b_main_state <= P_L_MAIN_STT_WRITE;
+		end
+		else begin
+			case(b_main_state)
+				P_L_MAIN_STT_WRITE:
+					begin
+						if(!iIF_WR_RW)begin
+							b_main_state <= P_L_MAIN_STT_READ_WAIT;
+						end
+					end
+				P_L_MAIN_STT_READ_WAIT:
+					begin
+						if(!iIF_RD_BUSY && ())begin
+							b_main_state <= P_L_MAIN_STT_WRITE;
+						end
+					end
+			endcase
+		end
+	end
+	
+	
+	assign oIF_WR_BUSY = (iIF_WR_RW)? ??? : 
+	
+	
+	
+	
+	gci_std_display_register #(P_VRAM_SIZE) REGISTER(
+		.iCLOCK(iCLOCK),
+		.inRESET(inRESET),
+		.iRESET_SYNC(1'b0),
+		//Write
+		.iWR_VALID(register_ctrl_condition && !register_busy_condition && iIF_WR_RW),
+		.iWR_ADDR(iIF_WR_ADDR[3:0]),
+		.iWR_DATA(iIF_WR_DATA),
+		//Read
+		.iRD_VALID(register_ctrl_condition && !register_busy_condition && !iIF_WR_RW),
+		.oRD_BUSY(),
+		.iRD_ADDR(iIF_WR_ADDR[3:0]),
+		.oRD_VALID(),
+		.iRD_BUSY(),
+		.oRD_DATA(),
+		//Info
+		.oINFO_CHARACTER(),
+		.oINFO_COLOR()
+	);
+	
+	
+	gci_std_display_command #(
+		P_AREA_H,
+		P_AREA_V,
+		P_AREAA_HV_N,
+		P_MEM_ADDR_N
+	)COMMAND(
+		.iCLOCK(),
+		.inRESET(),
+		//Register
+		.iREG_MODE(), //[0]Bitmap | [1]Charactor
+		//BUS
+		.iIF_VALID(display_ctrl_condition && !display_busy_condition || sequence_ctrl_condition && !sequence_busy_condition),
+		.iIF_SEQ(sequence_ctrl_condition),
+		.oIF_BUSY(),
+		.iIF_RW(),
+		.iIF_ADDR(),
+		.iIF_DATA(),
+		//Output
+		.oIF_VALID(),
+		.iIF_BUSY(),
+		.oIF_ADDR(),
+		.oIF_DATA()
+	);
+	
+	
+	
+	
+	
+	
+	
+endmodule
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	//VRAM Write Command Controller 
 	wire bus_req_wait;
@@ -87,7 +208,7 @@ module gci_std_display_display_controller(
 	wire disptiming_blank;
 	
 	//VRAM Write Command Controller 
-	gci_std_display_font_controller FONT_CONTROLLER(
+	gci_std_display_font_command FONT_CONTROLLER(
 		.iCLOCK(iCLOCK),
 		.inRESET(inRESET),
 		.iBUSMOD_REQ(iIF_WR_REQ && !bus_req_wait),
