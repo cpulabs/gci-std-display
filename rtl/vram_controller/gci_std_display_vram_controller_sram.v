@@ -405,6 +405,7 @@ module gci_std_display_vram_controller_sram #(
 	assign oDISP_DATA_G = {vramfifo1_data[10:5], {4{vramfifo1_data[5]}}};
 	assign oDISP_DATA_B = {vramfifo1_data[4:0], {5{vramfifo1_data[0]}}};
 	
+	
 endmodule
 
 

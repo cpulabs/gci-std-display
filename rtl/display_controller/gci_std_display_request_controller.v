@@ -1,15 +1,6 @@
 
 `default_nettype none
 
-
-/****************************************************************************
-Command (Address)
-	0x0 ~ 0xFF					: Not Use
-	0x100 ~ 0x2100				: Charactor Set (Use Data : ANSI Charactor = 7bit)
-	0x3000						: Display Clear (Use Data : Collor 16bit = 5R6G5B)
-****************************************************************************/
-
-
 module gci_std_display_request_controller #(
 		parameter P_AREA_H = 640,
 		parameter P_AREA_V = 480,
@@ -19,13 +10,14 @@ module gci_std_display_request_controller #(
 		input wire iCLOCK,
 		input wire inRESET,
 		//BUS
-		input wire iBUSMOD_REQ,
-		input wire [31:0] iBUSMOD_ADDR,
-		input wire [31:0] iBUSMOD_DATA,
-		output wire oBUSMOD_WAIT,
+		input wire iRQ_VALID,
+		output wire oRQ_BUSY,
+		input wire [P_MEM_ADDR_N-1:0] iRQ_ADDR,
+		input wire [23:0] iRQ_DATA,
 		//VRAM
-		output wire oBUS_VALID,
-		output wire [31:0] oBUS_DATA, 
+		output wire oRQ_VALID,
+		input wire iRQ_BUSY,
+		output wire [23:0] oRQ_DATA, 
 		//New
 		output wire oIF_REQ,
 		input wire iIF_ACK,
@@ -39,18 +31,32 @@ module gci_std_display_request_controller #(
 		output wire [7:0] oIF_G,
 		output wire [7:0] oIF_B,
 		input wire iIF_VALID,
+		output wire oIF_BUSY,
 		input wire [31:0] iIF_DATA
 	);
 	
 	
-	
-	
-	
-	
 	assign oBUSMOD_WAIT = reqfifo_wr_full;
 	
-	wire request_break_condition = iIF_BREAK || reqfifo_rd_empty;
+	wire request_break_condition = iIF_BREAK || ;
 	wire reqfifo_read_condition = 
+	
+	
+	
+	gci_std_sync_fifo #(24, 16, 4) VRAM_REQ_FIFO(
+		.inRESET(inRESET),
+		.iREMOVE(1'b0),
+		.iCLOCK(iCLOCK),
+		.iWR_EN(iRQ_VALID && !read_fifo_wr_full),
+		.iWR_DATA(iIF_DATA[23:0]),
+		.oWR_FULL(read_fifo_wr_full),
+		.oWR_ALMOST_FULL(),
+		.iRD_EN(!read_fifo_rd_empty && !iRQ_BUSY),
+		.oRD_DATA(read_fifo_rd_data),
+		.oRD_EMPTY(read_fifo_rd_empty)
+	);
+	
+	
 	
 	
 	localparam P_L_MAIN_STT_IDLE = 3'h0;
@@ -69,7 +75,7 @@ module gci_std_display_request_controller #(
 			case(b_main_state)
 				P_L_MAIN_STT_IDLE:
 					begin
-						if(!reqfifo_rd_empty)begin
+						if(iRQ_VALID)begin
 							b_main_state <= P_L_MAIN_STT_IF_REQ;
 						end
 					end
@@ -84,25 +90,14 @@ module gci_std_display_request_controller #(
 						if(request_break_condition)begin
 							b_main_state <= P_L_MAIN_STT_IF_END;
 						end
-						else if(reqfifo_rd_rw)begin
-							b_main_state <= P_L_MAIN_STT_IF_WRITE;
-						end
-						else begin
-							b_main_state <= P_L_MAIN_STT_IF_READ;
+						else if()begin
+							b_main_state <= P_L_MAIN_STT_IF_READ_WAIT;
 						end
 					end
 				P_L_MAIN_STT_IF_READ_WAIT:
 					begin
-						if(iIF_VALID)begin
-							if(request_break_condition)begin
-								b_main_state <= P_L_MAIN_STT_IF_END;
-							end
-							else if(reqfifo_rd_rw)begin
-								b_main_state <= P_L_MAIN_STT_IF_WRITE;
-							end
-							else begin
-								b_main_state <= P_L_MAIN_STT_IF_READ;
-							end
+						if(iIF_VALID && !read_fifo_wr_full)begin
+							b_main_state <= P_L_MAIN_STT_IF_END;
 						end
 					end
 				P_L_MAIN_STT_IF_END:
@@ -117,6 +112,41 @@ module gci_std_display_request_controller #(
 		end
 	end //main(vram-interface) state always
 	
+	
+	wire read_fifo_wr_full;
+	wire read_fifo_rd_empty;
+	wire [23:0] read_fifo_rd_data;
+	
+	gci_std_sync_fifo #(24, 4, 2) VRAM_RESULT_FIFO(
+		.inRESET(inRESET),
+		.iREMOVE(1'b0),
+		.iCLOCK(iCLOCK),
+		.iWR_EN(iIF_VALID && !read_fifo_wr_full),
+		.iWR_DATA(iIF_DATA[23:0]),
+		.oWR_FULL(read_fifo_wr_full),
+		.oWR_ALMOST_FULL(),
+		.iRD_EN(!read_fifo_rd_empty && !iRQ_BUSY),
+		.oRD_DATA(read_fifo_rd_data),
+		.oRD_EMPTY(read_fifo_rd_empty)
+	);
+	
+	
+	assign oRQ_VALID = !read_fifo_rd_empty && !iRQ_BUSY;
+	assign oRQ_DATA = read_fifo_rd_data;
+	
+	assign oIF_BUSY = read_fifo_wr_full;
+	
+	/***************************************************
+	Assertion
+	***************************************************/
+	/*
+	`ifdef GCI_STD_DISP_SVA_ASSERTION
+		proterty PRO_FIFO_NEVER_NOT_FULL;
+			@(posedge iCLOCK) disable iff (!inRESET) (!read_fifo_wr_full);
+		endproperty
+		assert property(PRO_FIFO_NEVER_NOT_FULL);
+	`endif
+	*/
 	
 　
 endmodule

@@ -211,7 +211,6 @@ module gci_std_display_vram_interface #(
 		end
 	end
 	
-
 	
 	always@(posedge iGCI_CLOCK or negedge inRESET)begin
 		if(!inRESET)begin
@@ -242,6 +241,7 @@ module gci_std_display_vram_interface #(
 		end
 	end
 	
+	
 	always@(posedge iGCI_CLOCK or negedge inRESET)begin
 		if(!inRESET)begin
 			b_if0_break <= 1'b0;
@@ -252,7 +252,7 @@ module gci_std_display_vram_interface #(
 		else begin
 			b_if0_break <= (b_main_state == P_L_MAIN_STT_IF1) && iIF0_REQ;
 		end
-	end //Pryority
+	end //Priority
 	
 	
 	

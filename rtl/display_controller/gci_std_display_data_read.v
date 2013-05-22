@@ -52,7 +52,7 @@ module gci_std_display_data_read #(
 	//FIFO
 	wire vramfifo0_full;
 	wire vramfifo0_empty;
-	wire [31:0] vramfifo0_data;
+	wire [23:0] vramfifo0_data;
 	wire vramfifo1_full;
 	wire vramfifo1_empty;
 	
@@ -161,19 +161,19 @@ module gci_std_display_data_read #(
 	/***************************************************
 	Output FIFO
 	***************************************************/
-	gci_std_sync_fifo #(32, P_READ_FIFO_DEPTH, P_READ_FIFO_DEPTH_N) VRAMREAD_FIFO0(
+	gci_std_sync_fifo #(24, P_READ_FIFO_DEPTH, P_READ_FIFO_DEPTH_N) VRAMREAD_FIFO0(
 		.inRESET(inRESET),
 		.iREMOVE(iRESET_SYNC),
 		.iCLOCK(iGCI_CLOCK),
 		.iWR_EN(iIF_VALID && !vramfifo0_full),
-		.iWR_DATA(iIF_DATA),
+		.iWR_DATA(iIF_DATA[23:0]),
 		.oWR_FULL(vramfifo0_full),
 		.oWR_ALMOST_FULL(),
 		.iRD_EN(!vramfifo0_empty && !vramfifo1_full),
 		.oRD_DATA(vramfifo0_data),
 		.oRD_EMPTY(vramfifo0_empty)
 	);
-	gci_std_async_fifo #(32, P_READ_FIFO_DEPTH, P_READ_FIFO_DEPTH_N) VRAMREAD_FIFO1(
+	gci_std_async_fifo #(24, P_READ_FIFO_DEPTH, P_READ_FIFO_DEPTH_N) VRAMREAD_FIFO1(
 		.inRESET(inRESET),
 		.iREMOVE(iRESET_SYNC),
 		.iWR_CLOCK(iGCI_CLOCK),
@@ -193,6 +193,15 @@ module gci_std_display_data_read #(
 	assign oIF_ENA = !iIF_BUSY && (b_read_state == P_L_READ_STT_READ);
 	assign oIF_ADDR = b_read_addr;
 	
+	/***************************************************
+	Assertion
+	***************************************************/
+	`ifdef GCI_STD_DISP_SVA_ASSERTION
+		proterty PRO_FIFO_NEVER_NOT_EMPTY;
+			@(posedge iDISP_CLOCK) disable iff (!inRESET) (!vramfifo1_empty |=> !vramfifo1_empty);
+		endproperty
+		assert property(PRO_FIFO_NEVER_NOT_EMPTY);
+	`endif
 	
 endmodule
 
