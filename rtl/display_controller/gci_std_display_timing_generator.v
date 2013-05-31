@@ -39,6 +39,11 @@ module gci_std_display_timing_generator #(
 	reg [P_H_WIDTH-1:0] b_hsync_counter;
 	reg [P_V_WIDTH-1:0] b_vsync_counter;
 	reg bn_disp_reset;
+	reg b_buff_sync;
+	reg b_buff_ena;
+	reg bn_buff_blank;
+	reg bn_buff_hsync;
+	reg bn_buff_vsync;
 	
 	wire hsync_restart_condition = !(b_hsync_counter < (P_THP + P_THB + P_AREA_H + P_THF-1));
 	wire vsync_restart_condition = !(b_vsync_counter < (P_TVP + P_TVB + P_AREA_V + P_TVF-1));
@@ -136,8 +141,9 @@ module gci_std_display_timing_generator #(
 	
 	
 	/*********************************
-	Display Reset
+	Output Buffer
 	*********************************/
+	//Display Reset
 	always@(posedge iDISP_CLOCK or negedge inRESET)begin
 		if(!inRESET)begin
 			bn_disp_reset <= 1'b0;
@@ -150,13 +156,37 @@ module gci_std_display_timing_generator #(
 		end
 	end
 	
+	always@(posedge iDISP_CLOCK or negedge inRESET)begin
+		if(!inRESET)begin
+			b_buff_sync <= 1'b0;
+			b_buff_ena <= 1'b0;
+			bn_buff_blank <= 1'b0;
+			bn_buff_hsync <= 1'b0;
+			bn_buff_vsync <= 1'b0;
+		end
+		else if(iRESET_SYNC)begin
+			b_buff_sync <= 1'b0;
+			b_buff_ena <= 1'b0;
+			bn_buff_blank <= 1'b0;
+			bn_buff_hsync <= 1'b0;
+			bn_buff_vsync <= 1'b0;
+		end
+		else begin
+			b_buff_sync <= vsync_restart_condition;
+			b_buff_ena <= data_active_condition;
+			bn_buff_blank <= data_active_condition;
+			bn_buff_hsync <= hsync_active_condition;
+			bn_buff_vsync <= vsync_active_condition;
+		end
+	end
+	
 	assign oDATA_REQ = data_active_condition;
-	assign oDATA_SYNC = vsync_restart_condition;
+	assign oDATA_SYNC = b_buff_sync;
 	assign onDISP_RESET = bn_disp_reset;
-	assign oDISP_ENA = data_active_condition;
-	assign oDISP_BLANK = !data_active_condition;
-	assign onDISP_HSYNC = !hsync_active_condition;
-	assign onDISP_VSYNC = !vsync_active_condition;
+	assign oDISP_ENA = b_buff_ena;
+	assign oDISP_BLANK = !bn_buff_blank;
+	assign onDISP_HSYNC = !bn_buff_hsync;
+	assign onDISP_VSYNC = !bn_buff_vsync;
 	
 	
 	/*********************************

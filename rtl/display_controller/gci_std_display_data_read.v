@@ -54,7 +54,11 @@ module gci_std_display_data_read #(
 	wire vramfifo0_empty;
 	wire [23:0] vramfifo0_data;
 	wire vramfifo1_full;
-	wire vramfifo1_empty;
+	wire vramfifo1_empty;	
+	wire [7:0] vramfifo1_data_r, vramfifo1_data_g, vramfifo1_data_b;
+	//Output Buffer
+	reg b_out_buff_valid;
+	reg [7:0] b_out_buff_r, b_out_buff_g, b_out_buff_b;
 	
 	//Condition
 	wire if_request_condition = vramfifo0_empty;
@@ -182,11 +186,35 @@ module gci_std_display_data_read #(
 		.oWR_FULL(vramfifo1_full),
 		.iRD_CLOCK(iDISP_CLOCK),
 		.iRD_EN(!vramfifo1_empty && iRD_ENA),
-		.oRD_DATA({oRD_DATA_R, oRD_DATA_G, oRD_DATA_B}),
+		.oRD_DATA({vramfifo1_data_r, vramfifo1_data_g, vramfifo1_data_b}),
 		.oRD_EMPTY(vramfifo1_empty)
 	);
 	
-	assign oRD_VALID = iRD_ENA;
+	/***************************************************
+	Output Buffer
+	***************************************************/	
+	always@(posedge iDISP_CLOCK or negedge inRESET)begin
+		if(!inRESET)begin
+			b_out_buff_valid <= 1'b0;
+			b_out_buff_r <= 8'h0;
+			b_out_buff_g <= 8'h0; 
+			b_out_buff_b <= 8'h0;
+		end
+		else begin
+			b_out_buff_valid <= iRD_ENA;
+			b_out_buff_r <= vramfifo1_data_r;
+			b_out_buff_g <= vramfifo1_data_g; 
+			b_out_buff_b <= vramfifo1_data_b;
+		end
+	end
+	
+	/***************************************************
+	Assign
+	***************************************************/
+	assign oRD_VALID = b_out_buff_valid;
+	assign oRD_DATA_R = b_out_buff_r;
+	assign oRD_DATA_G = b_out_buff_g;
+	assign oRD_DATA_B = b_out_buff_b;
 	
 	assign oIF_REQ = (b_main_state == P_L_MAIN_STT_IF_REQ);
 	assign oIF_FINISH = (b_main_state == P_L_MAIN_STT_IF_FINISH);
